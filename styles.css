@@ -63,8 +63,8 @@ h1, h2, h3 {
   top: 1rem;
   right: 1rem;
   z-index: 50;
-  width: 70px;
-  height: 70px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: var(--white);
   box-shadow: var(--shadow-soft);
