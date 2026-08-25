@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Send Your Prayer — GTC</title>
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="form-page">
+
+<a class="corner-btn" href="admin.html" aria-label="Student council login">
+  <img src="assets/gtc-logo.png" alt="">
+</a>
+
+<a class="back-link" href="index.html">&larr; Back</a>
+
+<div class="form-shell">
+  <div class="form-card">
+    <h2>Send Your Prayer</h2>
+    <p class="hint">Sent privately to the pastor and prayer team only. It is never shown publicly or answered on the board.</p>
+
+    <form id="prayer-form" novalidate>
+      <label class="field-label" for="message">Your prayer request</label>
+      <textarea id="message" name="message" placeholder="What would you like prayer for?" required></textarea>
+
+      <label class="field-label" for="name" style="margin-top:0.9rem;">Your name (optional)</label>
+      <input class="name-field" type="text" id="name" name="name" placeholder="Leave blank to stay anonymous">
+
+      <div class="form-actions">
+        <button type="submit" class="btn">Send prayer</button>
+        <a href="index.html" class="btn secondary">Cancel</a>
+      </div>
+
+      <div class="confirm-msg" id="confirm-msg" role="status">Sent privately. You are held in thought.</div>
+    </form>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+  const form = document.getElementById('prayer-form');
+  const confirmMsg = document.getElementById('confirm-msg');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = document.getElementById('message').value.trim();
+    if (!message) return;
+    const name = document.getElementById('name').value;
+
+    PrayerBoard.addSubmission({ type: 'prayer', name, message });
+
+    form.reset();
+    confirmMsg.classList.add('show');
+    confirmMsg.focus?.();
+    setTimeout(() => confirmMsg.classList.remove('show'), 6000);
+  });
+</script>
+</body>
+</html>

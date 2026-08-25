@@ -1,0 +1,564 @@
+/* ============================================================
+   Design tokens — sky blue, matching the ASK logo
+   ============================================================ */
+:root {
+  --sky: #78CDFF;
+  --sky-deep: #2F8FCE;
+  --sky-pale: #EFF8FF;
+  --white: #FFFFFF;
+  --ink: #16324A;
+  --text-muted: #5B7186;
+  --line: rgba(22, 50, 74, 0.12);
+  --seen: #6FAE85;
+  --font-display: 'Baloo 2', 'Noto Sans KR', sans-serif;
+  --font-body: 'Inter', 'Noto Sans KR', sans-serif;
+  --radius: 14px;
+  --shadow-soft: 0 10px 30px rgba(22, 50, 74, 0.12);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--sky-pale);
+  color: var(--ink);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: inherit; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sky-deep);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   Corner logo button — links to admin.html on every page
+   ============================================================ */
+.corner-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.corner-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.corner-btn:hover, .corner-btn:focus-visible {
+  transform: scale(1.08);
+  box-shadow: 0 12px 34px rgba(22, 50, 74, 0.2);
+}
+
+/* ============================================================
+   Header / hero
+   ============================================================ */
+.site-header {
+  background: var(--sky);
+  color: var(--white);
+  padding: 3rem 1.5rem 2.6rem;
+  text-align: center;
+}
+
+.site-header .eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.8rem;
+}
+
+.site-header h1 {
+  font-size: clamp(2.6rem, 8vw, 4rem);
+  letter-spacing: 0.02em;
+}
+
+.site-header .tagline {
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ============================================================
+   Two doors — main navigation
+   ============================================================ */
+.doors {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.door {
+  flex: 1 1 220px;
+  max-width: 280px;
+  padding: 1.8rem 1.2rem;
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+  text-decoration: none;
+  color: var(--ink);
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.door:hover, .door:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(22, 50, 74, 0.18);
+}
+
+.door h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.35rem;
+}
+
+.door p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   Board — answered questions
+   ============================================================ */
+.board-section {
+  flex: 1;
+  padding: 1.5rem 1.5rem 3.5rem;
+}
+
+.board-wrap {
+  max-width: 38rem;
+  margin: 0 auto;
+}
+
+.board-heading {
+  text-align: center;
+  margin-bottom: 1.4rem;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+}
+
+.ledger {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.ledger-item { border-bottom: 1px solid var(--line); }
+.ledger-item:last-child { border-bottom: none; }
+
+.ledger-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.ledger-flame {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--sky-deep);
+  transition: background 0.25s ease;
+}
+
+.ledger-item[data-open="true"] .ledger-flame {
+  background: var(--sky-deep);
+}
+
+.ledger-question-text { flex: 1; }
+
+.ledger-caret {
+  flex: none;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: transform 0.25s ease;
+}
+
+.ledger-item[data-open="true"] .ledger-caret { transform: rotate(90deg); }
+
+.ledger-answer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.ledger-item[data-open="true"] .ledger-answer { max-height: 40rem; }
+
+.ledger-answer-inner {
+  padding: 0 1.1rem 1.1rem 2rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+.board-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   Forms (ask-the-pastor / send-your-prayer)
+   ============================================================ */
+.form-page { flex: 1; display: flex; flex-direction: column; }
+
+.form-shell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 30rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 2rem 1.6rem;
+}
+
+.form-card h2 { font-size: 1.4rem; margin-bottom: 0.35rem; }
+
+.form-card p.hint {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  margin: 0 0 1.3rem;
+  line-height: 1.5;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sky-deep);
+  margin-bottom: 0.5rem;
+}
+
+textarea {
+  width: 100%;
+  min-height: 8rem;
+  resize: vertical;
+  background: var(--sky-pale);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  padding: 0.8rem 0.9rem;
+  line-height: 1.5;
+}
+
+textarea::placeholder { color: rgba(91, 113, 134, 0.6); }
+
+.name-field {
+  width: 100%;
+  margin-top: 0.9rem;
+  background: var(--sky-pale);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  padding: 0.7rem 0.9rem;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.3rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--sky-deep);
+  color: var(--white);
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover, .btn:focus-visible { background: #26648E; transform: translateY(-1px); }
+
+.btn.secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+}
+
+.btn.secondary:hover, .btn.secondary:focus-visible {
+  color: var(--ink);
+  border-color: var(--sky-deep);
+}
+
+.back-link {
+  display: inline-block;
+  margin: 1.4rem 0 0 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.back-link:hover { color: var(--sky-deep); }
+
+.confirm-msg {
+  display: none;
+  margin-top: 1.2rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: var(--radius);
+  background: rgba(111, 174, 133, 0.15);
+  border: 1px solid rgba(111, 174, 133, 0.5);
+  color: #35543F;
+  font-size: 0.88rem;
+}
+
+.confirm-msg.show { display: block; }
+
+/* ============================================================
+   Admin page
+   ============================================================ */
+.admin-page { background: var(--sky-pale); color: var(--ink); min-height: 100vh; }
+
+.admin-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.admin-gate-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 2rem 1.8rem;
+  width: 100%;
+  max-width: 22rem;
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+}
+
+.admin-gate-card img.gate-logo {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  display: block;
+}
+
+.admin-gate-card h1 { font-size: 1.25rem; margin-bottom: 0.9rem; }
+
+.admin-gate-card input[type="password"] {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  margin-bottom: 0.7rem;
+  text-align: center;
+}
+
+.admin-gate-error {
+  display: none;
+  color: #C4553B;
+  font-size: 0.82rem;
+  margin: -0.3rem 0 0.8rem;
+}
+
+.admin-gate-error.show { display: block; }
+
+.admin-shell {
+  display: none;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2.2rem 1.5rem 4rem;
+}
+
+.admin-shell.show { display: block; }
+
+.admin-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.8rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.admin-top h1 { font-size: 1.5rem; }
+
+.logout-link {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+}
+.logout-link:hover { color: var(--sky-deep); }
+
+.admin-section { margin-bottom: 2.6rem; }
+
+.admin-section h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sub-item {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.7rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.sub-item.is-seen { opacity: 0.6; }
+
+.sub-item .meta {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.35rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sub-item .meta .tag {
+  background: var(--sky);
+  color: var(--white);
+  padding: 0.12rem 0.45rem;
+  border-radius: 3px;
+  font-size: 0.65rem;
+}
+
+.sub-item .body { font-size: 0.92rem; line-height: 1.5; color: var(--ink); }
+
+.sub-item .row-actions {
+  margin-top: 0.6rem;
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.seen-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.seen-checkbox input { width: 15px; height: 15px; accent-color: var(--seen); cursor: pointer; }
+
+.mini-btn {
+  font-size: 0.78rem;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.32rem 0.65rem;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+.mini-btn:hover { border-color: #C4553B; color: #C4553B; }
+.mini-btn.publish { border-color: var(--sky-deep); color: var(--sky-deep); }
+.mini-btn.publish:hover { background: var(--sky-deep); color: #fff; }
+
+.empty-note { color: var(--text-muted); font-size: 0.88rem; }
+
+.board-editor-item textarea, .board-editor-item input[type="text"] {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  margin-top: 0.35rem;
+}
+
+.new-board-form {
+  background: var(--white);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.new-board-form label {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.65rem;
+}
+
+.new-board-form label:first-child { margin-top: 0; }
